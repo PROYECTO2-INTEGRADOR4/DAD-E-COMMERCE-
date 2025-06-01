@@ -12,6 +12,7 @@
         <module name="ecommerce-eureka" />
         <module name="ecommerce-cartservice" />
         <module name="ecommerce-orderservice" />
+        <module name="ecommerce-inventoryservice" />
         <module name="ecommerce-gateway" />
         <module name="ecommerce-config" />
       </profile>
@@ -23,6 +24,7 @@
       <module name="ecommerce-config" options="-parameters" />
       <module name="ecommerce-eureka" options="-parameters" />
       <module name="ecommerce-gateway" options="-parameters" />
+      <module name="ecommerce-inventoryservice" options="-parameters" />
       <module name="ecommerce-orderservice" options="-parameters" />
       <module name="ecommerce-productservice" options="-parameters" />
       <module name="ecommerce-userservice" options="-parameters" />
