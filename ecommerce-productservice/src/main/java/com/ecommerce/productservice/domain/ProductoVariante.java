@@ -33,6 +33,6 @@ public class ProductoVariante {
     @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "producto_variante")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productoVariante")
     private Set<VarianteOpcion> varianteOpciones;
 }

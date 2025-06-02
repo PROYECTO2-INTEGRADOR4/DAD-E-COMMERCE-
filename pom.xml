@@ -25,6 +25,7 @@
     <module>ecommerce-userservice</module>
     <module>ecommerce-cartservice</module>
     <module>ecommerce-orderservice</module>
+    <module>ecommerce-inventoryservice</module>
   </modules>
 
   <properties>
