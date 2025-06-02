@@ -1,0 +1,52 @@
+version: '3'
+services:
+
+  db-users:
+    container_name: db-users
+    image: postgres:15.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: userdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - 5438:5432
+
+  db-carts:
+    container_name: db-carts
+    image: postgres:15.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: cartdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - 5435:5432
+
+  db-products:
+    container_name: db-products
+    image: postgres:15.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: productdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - 5434:5432
+
+  db-orders:
+    container_name: db-orders
+    image: postgres:15.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: orderdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - 5431:5432
+
+
+
+
+
+
