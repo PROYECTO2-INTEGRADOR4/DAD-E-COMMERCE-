@@ -1,5 +1,6 @@
 package com.ecommerce.productservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,17 +10,19 @@ import lombok.NoArgsConstructor;
 import java.util.Set;
 
 @Entity
-@Table(name = "productos")
+@Table(name = "marcas")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Producto {
+public class Marca {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @Column(name = "codigo")
+    private String codigo;
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "descripcion")
@@ -27,15 +30,7 @@ public class Producto {
     @Column(name = "estado")
     private String estado;
 
-    @ManyToOne
-    @JoinColumn(name = "categoria_id", nullable = false)
-    private Categoria categoria;
-
-    @ManyToOne
-    @JoinColumn(name = "marca_id", nullable = false)
-    private Marca marca;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "producto")
-    private Set<ProductoVariante> productoVariantes;
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "marca")
+    @JsonIgnore
+    private Set<Producto> productos;
 }

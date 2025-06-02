@@ -6,27 +6,29 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Entity
-@Table(name = "etiquetas")
+@Table(name = "variante_opciones")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Etiqueta {
+public class VarianteOpcion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "nombre")
-    private String nombre;
-    @Column(name = "descripcion")
-    private String descripcion;
+    @Column(name = "valor")
+    private String valor;
     @Column(name = "estado")
     private String estado;
 
-    @ManyToMany(mappedBy = "etiquetas")
-    private Set<Producto> productos;
+    @ManyToOne
+    @JoinColumn(name = "productovariante_id", nullable = false)
+    private ProductoVariante productoVariante;
+
+    @ManyToOne
+    @JoinColumn(name = "opcion_id", nullable = false)
+    private Opcion opcion;
+
 }

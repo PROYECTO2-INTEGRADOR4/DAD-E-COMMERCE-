@@ -17,12 +17,12 @@ public class ItemCarrito {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "producto_id")
-    private Long productoId;
+    @Column(name = "productovar_id")
+    private Long productovarId;
     @Column(name = "cantidad")
     private Integer cantidad;
-    @Column(name = "precio")
-    private Double precio;
+    @Column(name = "preciounitario")
+    private Double preciounitario;
     @Column(name = "estado")
     private String estado;
 

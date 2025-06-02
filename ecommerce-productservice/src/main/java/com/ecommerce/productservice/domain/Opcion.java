@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 import java.util.Set;
 
 @Entity
-@Table(name = "productos")
+@Table(name = "opciones")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Producto {
+public class Opcion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,20 +22,9 @@ public class Producto {
     private Long id;
     @Column(name = "nombre")
     private String nombre;
-    @Column(name = "descripcion")
-    private String descripcion;
     @Column(name = "estado")
     private String estado;
 
-    @ManyToOne
-    @JoinColumn(name = "categoria_id", nullable = false)
-    private Categoria categoria;
-
-    @ManyToOne
-    @JoinColumn(name = "marca_id", nullable = false)
-    private Marca marca;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "producto")
-    private Set<ProductoVariante> productoVariantes;
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "opcion")
+    private Set<VarianteOpcion> varianteOpcion;
 }
