@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
@@ -23,7 +24,7 @@ public class ProductoVariante {
     @Column(name = "USK")
     private String USK;
     @Column(name = "precio")
-    private Double precio;
+    private BigDecimal precio;
     @Column(name = "imagen_url")
     private String imagen_url;
     @Column(name = "estado")
