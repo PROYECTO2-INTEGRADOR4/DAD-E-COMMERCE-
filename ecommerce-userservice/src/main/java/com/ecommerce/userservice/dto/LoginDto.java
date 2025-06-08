@@ -1,4 +1,4 @@
-package com.example.ecommerceauth.dto;
+package com.ecommerce.userservice.dto;
 
 import lombok.Data;
 

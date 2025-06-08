@@ -19,7 +19,6 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ecommerce-auth" target="17" />
-      <module name="EcommerceMicroservices" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
