@@ -38,4 +38,9 @@ public class IUsuarioServiceImpl implements IUsuarioService {
     public List<Usuario> readAll() {
         return repository.findAll();
     }
+
+    @Override
+    public Optional<Usuario> findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
 }

@@ -8,8 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -60,6 +63,13 @@ public class UsuarioController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/by-username/{username}")
+    public ResponseEntity<?> findByUsername(@PathVariable String username) {
+        Optional<Usuario> usuarioOpt = service.findByUsername(username);
+        if (usuarioOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Usuario usuario = usuarioOpt.get();
 
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> updateUsuario(@PathVariable("id") Long id, @Valid @RequestBody Usuario u) {
@@ -69,5 +79,14 @@ public class UsuarioController {
         } else {
             return new ResponseEntity<>(service.update(u), HttpStatus.OK);
         }
+        Map<String, Object> response = new HashMap<>();
+        response.put("username", usuario.getUsername());
+        response.put("password", usuario.getPassword());
+        response.put("estado", usuario.getEstado());
+        response.put("roles", usuario.getRoles().stream()
+                .map(rol -> rol.getNombre()) // asumimos que tienes getNombre()
+                .collect(Collectors.toList())
+        );
+        return ResponseEntity.ok(usuarioService.findByUsername(username));
     }
 }
