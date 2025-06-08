@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface IUsuarioService {
     Usuario create(Usuario u);
     Usuario update(Usuario u);
-    void delete(Usuario u);
+    void delete(Long id);
     Optional<Usuario> read(Long id);
     List<Usuario> readAll();
 }

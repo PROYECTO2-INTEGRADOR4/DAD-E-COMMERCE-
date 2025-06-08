@@ -25,8 +25,8 @@ public class IUsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public void delete(Usuario u) {
-        repository.delete(u);
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
     @Override

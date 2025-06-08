@@ -24,8 +24,8 @@ public class IOpcionServiceImpl implements IOpcionService {
     }
 
     @Override
-    public void delete(Opcion p) {
-        repository.delete(p);
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
     @Override

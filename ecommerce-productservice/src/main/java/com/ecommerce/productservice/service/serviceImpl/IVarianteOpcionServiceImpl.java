@@ -24,8 +24,8 @@ public class IVarianteOpcionServiceImpl implements IVarianteOpcionService {
     }
 
     @Override
-    public void delete(VarianteOpcion vo) {
-        repository.delete(vo);
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
     @Override

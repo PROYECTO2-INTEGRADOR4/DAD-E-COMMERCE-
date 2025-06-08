@@ -24,8 +24,8 @@ public class IMarcaServiceImpl implements IMarcaService {
     }
 
     @Override
-    public void delete(Marca m) {
-        repository.delete(m);
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
     @Override
