@@ -24,8 +24,8 @@ public class ICarritoServiceImpl implements ICarritoService {
     }
 
     @Override
-    public void delete(Carrito c) {
-        repository.delete(c);
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
     @Override
@@ -36,5 +36,22 @@ public class ICarritoServiceImpl implements ICarritoService {
     @Override
     public List<Carrito> readAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public Carrito createCarritoForUser(Long userId) {
+        Optional<Carrito> carrito = repository.findById(userId);
+        if (carrito.isPresent()) {
+            return carrito.get();
+        }
+        Carrito c = new Carrito();
+        c.setUserId(userId);
+        c.setEstado("A");
+        return repository.save(c);
+    }
+
+    @Override
+    public Optional<Carrito> readCarritoForUser(Long userId) {
+        return repository.findByUserId(userId);
     }
 }
