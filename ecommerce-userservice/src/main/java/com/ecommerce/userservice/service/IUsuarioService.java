@@ -11,4 +11,5 @@ public interface IUsuarioService {
     void delete(Long id);
     Optional<Usuario> read(Long id);
     List<Usuario> readAll();
+    Optional<Usuario> findByUsername(String username);
 }

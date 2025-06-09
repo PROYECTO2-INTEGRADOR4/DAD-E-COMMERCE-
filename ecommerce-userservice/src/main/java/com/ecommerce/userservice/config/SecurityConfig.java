@@ -1,6 +1,5 @@
 package com.ecommerce.userservice.config;
 
-
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Component;
 @EnableMethodSecurity
 @AllArgsConstructor
 public class SecurityConfig {
-    private UserDetailsService userDetailsService;
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 

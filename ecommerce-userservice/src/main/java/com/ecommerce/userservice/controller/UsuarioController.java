@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UsuarioController {
 
-    private final IUsuarioService service;
+    private final IUsuarioService usuarioService;
 
     @GetMapping
     public ResponseEntity<List<Usuario>> readAll() {
         try {
-            List<Usuario> usuarios = service.readAll();
+            List<Usuario> usuarios = usuarioService.readAll();
             if (usuarios.isEmpty()) {
                 return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
             }
@@ -37,7 +37,7 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> findById(@PathVariable("id") Long id) {
         try {
-            Usuario usuario = service.read(id).get();
+            Usuario usuario = usuarioService.read(id).get();
             return new ResponseEntity<>(usuario, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
@@ -47,44 +47,27 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<Usuario> createUsuario(@Valid @RequestBody Usuario u) {
         try {
-            Usuario usuario = service.create(u);
+            Usuario usuario = usuarioService.create(u);
             return new ResponseEntity<>(usuario, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Usuario> deleteUsuario(@PathVariable("id") Long id) {
-        try {
-            service.delete(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
     @GetMapping("/by-username/{username}")
     public ResponseEntity<?> findByUsername(@PathVariable String username) {
-        Optional<Usuario> usuarioOpt = service.findByUsername(username);
+        Optional<Usuario> usuarioOpt = usuarioService.findByUsername(username);
         if (usuarioOpt.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         Usuario usuario = usuarioOpt.get();
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Usuario> updateUsuario(@PathVariable("id") Long id, @Valid @RequestBody Usuario u) {
-        Optional<Usuario> usuario = service.read(id);
-        if (usuario.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(service.update(u), HttpStatus.OK);
-        }
         Map<String, Object> response = new HashMap<>();
         response.put("username", usuario.getUsername());
         response.put("password", usuario.getPassword());
         response.put("estado", usuario.getEstado());
         response.put("roles", usuario.getRoles().stream()
-                .map(rol -> rol.getNombre()) // asumimos que tienes getNombre()
+                .map(rol -> rol.getNombre())
                 .collect(Collectors.toList())
         );
         return ResponseEntity.ok(usuarioService.findByUsername(username));
