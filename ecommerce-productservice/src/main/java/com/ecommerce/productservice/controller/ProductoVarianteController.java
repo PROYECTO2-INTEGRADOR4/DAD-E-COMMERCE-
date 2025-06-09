@@ -1,6 +1,7 @@
 package com.ecommerce.productservice.controller;
 
 import com.ecommerce.productservice.domain.ProductoVariante;
+import com.ecommerce.productservice.dto.ProductoVarianteDto;
 import com.ecommerce.productservice.service.IProductoVarianteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -69,5 +70,11 @@ public class ProductoVarianteController {
         } else {
             return new ResponseEntity<>(service.update(pv), HttpStatus.OK);
         }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductoVarianteDto> getVarianteById(@PathVariable("id") Long id) {
+        ProductoVarianteDto dto = service.readProductoVarianteforId(id);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 }
