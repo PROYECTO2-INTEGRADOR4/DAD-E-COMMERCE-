@@ -6,7 +6,7 @@ spring:
     name: msvc-product
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5434/productdb
+    url: jdbc:postgresql://localhost:5432/productdb
     username: postgres
     password: 1234
   jpa:
