@@ -9,10 +9,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ecommerce-userservice" />
         <module name="ecommerce-productservice" />
-        <module name="ecommerce-eureka" />
         <module name="ecommerce-cartservice" />
+        <module name="ecommerce-eureka" />
         <module name="ecommerce-orderservice" />
         <module name="ecommerce-inventoryservice" />
+        <module name="ecommerce-envioservice" />
         <module name="ecommerce-gateway" />
         <module name="ecommerce-config" />
       </profile>
@@ -22,18 +23,17 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
         <module name="ecommerce-notificationservice" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ecommerce-auth" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ecommerce-cartservice" options="-parameters" />
       <module name="ecommerce-config" options="-parameters" />
+      <module name="ecommerce-envioservice" options="-parameters" />
       <module name="ecommerce-eureka" options="-parameters" />
       <module name="ecommerce-gateway" options="-parameters" />
       <module name="ecommerce-inventoryservice" options="-parameters" />

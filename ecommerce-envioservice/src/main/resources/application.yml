@@ -1,0 +1,21 @@
+server:
+  port: 8787
+
+spring:
+  application:
+    name: ms-envio
+  datasource:
+    url: jdbc:postgresql://localhost:5434/bdenvios
+    username: postgres
+    password: 12345
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+eureka:
+  client:
+    enabled: false
