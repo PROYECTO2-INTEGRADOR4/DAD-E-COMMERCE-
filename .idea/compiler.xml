@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ecommerce-userservice" />
+        <module name="ecommerce-productservice" />
+        <module name="ecommerce-eureka" />
+        <module name="ecommerce-cartservice" />
+        <module name="ecommerce-orderservice" />
+        <module name="ecommerce-inventoryservice" />
+        <module name="ecommerce-gateway" />
+        <module name="ecommerce-config" />
+      </profile>
+      <profile name="Annotation profile for EcommerceMicroservices" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+        </processorPath>
+        <module name="ecommerce-notificationservice" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ecommerce-auth" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ecommerce-cartservice" options="-parameters" />
+      <module name="ecommerce-config" options="-parameters" />
+      <module name="ecommerce-eureka" options="-parameters" />
+      <module name="ecommerce-gateway" options="-parameters" />
+      <module name="ecommerce-inventoryservice" options="-parameters" />
+      <module name="ecommerce-notificationservice" options="-parameters" />
+      <module name="ecommerce-orderservice" options="-parameters" />
+      <module name="ecommerce-productservice" options="-parameters" />
+      <module name="ecommerce-userservice" options="-parameters" />
+    </option>
+  </component>
+</project>
