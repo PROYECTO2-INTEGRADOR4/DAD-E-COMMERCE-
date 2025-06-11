@@ -28,7 +28,9 @@
     <module>ecommerce-orderservice</module>
     <module>ecommerce-inventoryservice</module>
     <module>ecommerce-notificationservice</module>
+    <module>ecommerce-envioservice</module>
   </modules>
+
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

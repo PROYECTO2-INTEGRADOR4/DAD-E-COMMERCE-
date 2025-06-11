@@ -1,6 +1,8 @@
 package com.ecommerce.userservice.service.impl;
 
+import com.ecommerce.userservice.client.CartClient;
 import com.ecommerce.userservice.domain.Usuario;
+import com.ecommerce.userservice.dto.CrearCarritoRequestDto;
 import com.ecommerce.userservice.repository.IUsuarioRepository;
 import com.ecommerce.userservice.service.IUsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class IUsuarioServiceImpl implements IUsuarioService {
     private final IUsuarioRepository repository;
+    private final CartClient cartClient;
 
     @Override
     public Usuario create(Usuario u) {
@@ -25,8 +28,8 @@ public class IUsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public void delete(Usuario u) {
-        repository.delete(u);
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
     @Override
@@ -37,5 +40,18 @@ public class IUsuarioServiceImpl implements IUsuarioService {
     @Override
     public List<Usuario> readAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public Optional<Usuario> findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
+
+    @Override
+    public Usuario crearUsuario(Usuario u) {
+        Usuario u1 = repository.save(u);
+        CrearCarritoRequestDto request = new CrearCarritoRequestDto(u1.getId());
+        cartClient.crearCarrito(request);
+        return u1;
     }
 }

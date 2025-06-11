@@ -24,8 +24,8 @@ public class IProductoServiceImpl implements IProductoService {
     }
 
     @Override
-    public void delete(Producto p) {
-        repository.delete(p);
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
     @Override

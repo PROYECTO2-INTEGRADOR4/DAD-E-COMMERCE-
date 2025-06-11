@@ -1,6 +1,19 @@
 version: '3'
 services:
 
+  sv-gateway:
+    container_name: sv-gateway
+    build:
+      context: ./sv-gateway
+    ports:
+      - 8080:8080
+    depends_on:
+      - db-users
+      - db-carts
+      - db-orders
+      - db-products
+
+
   db-users:
     container_name: db-users
     image: postgres:15.2
@@ -11,6 +24,7 @@ services:
       POSTGRES_PASSWORD: 1234
     ports:
       - 5438:5432
+
 
   db-carts:
     container_name: db-carts
@@ -23,6 +37,7 @@ services:
     ports:
       - 5435:5432
 
+
   db-products:
     container_name: db-products
     image: postgres:15.2
@@ -34,6 +49,7 @@ services:
     ports:
       - 5434:5432
 
+
   db-orders:
     container_name: db-orders
     image: postgres:15.2
@@ -44,6 +60,7 @@ services:
       POSTGRES_PASSWORD: 1234
     ports:
       - 5431:5432
+
 
 
 

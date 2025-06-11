@@ -25,8 +25,8 @@ public class IProductoVarianteServiceImpl implements IProductoVarianteService {
     }
 
     @Override
-    public void delete(ProductoVariante pv) {
-        repository.delete(pv);
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class IProductoVarianteServiceImpl implements IProductoVarianteService {
     }
 
     @Override
-    public ProductoVarianteDto readVarianteforId(Long id) {
+    public ProductoVarianteDto readProductoVarianteforId(Long id) {
         ProductoVariante pv = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se encontro el id " + id));
         ProductoVarianteDto pvDto = new ProductoVarianteDto();

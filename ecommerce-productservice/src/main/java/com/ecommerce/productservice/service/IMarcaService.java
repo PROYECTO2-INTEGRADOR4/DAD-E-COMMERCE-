@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface IMarcaService {
     Marca create(Marca m);
     Marca update(Marca m);
-    void delete(Marca m);
+    void delete(Long id);
     Optional<Marca> read(Long id);
     List<Marca> readAll();
 }

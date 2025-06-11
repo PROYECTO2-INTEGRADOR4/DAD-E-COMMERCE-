@@ -24,8 +24,8 @@ public class ICategoriaServiceImpl implements ICategoriaService {
     }
 
     @Override
-    public void delete(Categoria c) {
-        repository.delete(c);
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface IProductoService {
     Producto create(Producto p);
     Producto update(Producto p);
-    void delete(Producto p);
+    void delete(Long id);
     Optional<Producto> read(Long id);
     List<Producto> readAll();
 }

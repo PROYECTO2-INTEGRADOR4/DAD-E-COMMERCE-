@@ -8,7 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -48,5 +52,24 @@ public class UsuarioController {
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/by-username/{username}")
+    public ResponseEntity<?> findByUsername(@PathVariable String username) {
+        Optional<Usuario> usuarioOpt = usuarioService.findByUsername(username);
+        if (usuarioOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Usuario usuario = usuarioOpt.get();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("username", usuario.getUsername());
+        response.put("password", usuario.getPassword());
+        response.put("estado", usuario.getEstado());
+        response.put("roles", usuario.getRoles().stream()
+                .map(rol -> rol.getNombre())
+                .collect(Collectors.toList())
+        );
+        return ResponseEntity.ok(usuarioService.findByUsername(username));
     }
 }

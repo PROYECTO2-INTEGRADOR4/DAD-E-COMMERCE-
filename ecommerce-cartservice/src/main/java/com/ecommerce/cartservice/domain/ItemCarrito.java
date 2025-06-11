@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "itemcarritos")
 @Data
@@ -18,15 +20,16 @@ public class ItemCarrito {
     @Column(name = "id")
     private Long id;
     @Column(name = "productovar_id")
-    private Long productovarId;
+    private Long productoVarianteId;
     @Column(name = "cantidad")
     private Integer cantidad;
     @Column(name = "preciounitario")
-    private Double preciounitario;
+    private BigDecimal precioUnitario;
     @Column(name = "estado")
     private String estado;
 
     @ManyToOne
     @JoinColumn(name = "carrito_id", nullable = false)
     private Carrito carrito;
+
 }

@@ -6,7 +6,7 @@ spring:
     name: msvc-cart
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://db-carts:5433/cartDB
+    url: jdbc:postgresql://db-carts:5432/cartDB
     username: postgres
     password: 1234
   jpa:

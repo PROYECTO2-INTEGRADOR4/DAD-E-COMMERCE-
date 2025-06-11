@@ -9,8 +9,8 @@ import java.util.Optional;
 public interface IProductoVarianteService {
     ProductoVariante create(ProductoVariante pv);
     ProductoVariante update(ProductoVariante pv);
-    void delete(ProductoVariante pv);
+    void delete(Long id);
     Optional<ProductoVariante> read(Long id);
     List<ProductoVariante> readAll();
-    ProductoVarianteDto readVarianteforId(Long id);
+    ProductoVarianteDto readProductoVarianteforId(Long id);
 }
