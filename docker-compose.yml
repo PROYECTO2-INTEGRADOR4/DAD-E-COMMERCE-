@@ -1,18 +1,6 @@
 version: '3'
 services:
 
-  sv-gateway:
-    container_name: sv-gateway
-    build:
-      context: ./sv-gateway
-    ports:
-      - 8080:8080
-    depends_on:
-      - db-users
-      - db-carts
-      - db-orders
-      - db-products
-
 
   db-users:
     container_name: db-users
@@ -60,6 +48,29 @@ services:
       POSTGRES_PASSWORD: 1234
     ports:
       - 5431:5432
+
+  db-inventory:
+    container_name: db-inventory
+    image: postgres:15.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: inventorydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - 5433:5432
+
+  db-payment:
+    container_name: db-payment
+    image: postgres:15.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: paymentdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - 5436:5432
+
 
 
 

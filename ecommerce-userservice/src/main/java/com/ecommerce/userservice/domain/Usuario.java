@@ -27,7 +27,7 @@ public class Usuario {
     @Column(name = "estado")
     private String estado;
 
-    @ManyToMany(mappedBy = "usuarios")
+    @ManyToMany(mappedBy = "usuarios", fetch = FetchType.EAGER)
     private Set<Rol> roles;
 
 }

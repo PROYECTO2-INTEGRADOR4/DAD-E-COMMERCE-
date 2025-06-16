@@ -17,8 +17,8 @@ public class Inventario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "producto_id", nullable = false)
-    private Long productoId; // Solo ID, sin relación JPA para evitar acoplamiento
+    @Column(name = "producto_variante_id", nullable = false)
+    private Long productoVarianteId; // Solo ID, sin relación JPA para evitar acoplamiento
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "almacen_id", nullable = false)

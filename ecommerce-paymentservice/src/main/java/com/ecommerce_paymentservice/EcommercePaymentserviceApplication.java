@@ -1,13 +1,13 @@
-package com.microservice.inventario;
+package com.ecommerce_paymentservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MicroserviceInventarioApplication {
+public class EcommercePaymentserviceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MicroserviceInventarioApplication.class, args);
+		SpringApplication.run(EcommercePaymentserviceApplication.class, args);
 	}
 
 }

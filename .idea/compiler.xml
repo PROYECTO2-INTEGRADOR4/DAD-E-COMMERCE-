@@ -16,12 +16,14 @@
         <module name="ecommerce-envioservice" />
         <module name="ecommerce-gateway" />
         <module name="ecommerce-config" />
+        <module name="ecommerce-paymentservice" />
       </profile>
       <profile name="Annotation profile for EcommerceMicroservices" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
         <module name="ecommerce-notificationservice" />
@@ -38,6 +40,7 @@
       <module name="ecommerce-inventoryservice" options="-parameters" />
       <module name="ecommerce-notificationservice" options="-parameters" />
       <module name="ecommerce-orderservice" options="-parameters" />
+      <module name="ecommerce-paymentservice" options="-parameters" />
       <module name="ecommerce-productservice" options="-parameters" />
       <module name="ecommerce-userservice" options="-parameters" />
     </option>

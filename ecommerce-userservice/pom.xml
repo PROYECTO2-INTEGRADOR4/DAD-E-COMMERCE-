@@ -12,6 +12,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ecommerce-userservice</name>
 	<description>Spring Boot Ecommerce Userservice</description>
+
 	<url/>
 	<licenses>
 		<license/>

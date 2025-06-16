@@ -29,6 +29,7 @@
     <module>ecommerce-inventoryservice</module>
     <module>ecommerce-notificationservice</module>
     <module>ecommerce-envioservice</module>
+    <module>ecommerce-paymentservice</module>
   </modules>
 
 

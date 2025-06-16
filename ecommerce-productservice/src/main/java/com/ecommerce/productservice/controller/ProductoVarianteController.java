@@ -5,7 +5,6 @@ import com.ecommerce.productservice.dto.ProductoVarianteDto;
 import com.ecommerce.productservice.service.IProductoVarianteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +17,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductoVarianteController {
 
-    @Autowired
-    private IProductoVarianteService service;
+    private final IProductoVarianteService service;
 
+    // 🔹 1. Obtener todos
     @GetMapping
     public ResponseEntity<List<ProductoVariante>> readAll() {
         try {
@@ -34,16 +33,31 @@ public class ProductoVarianteController {
         }
     }
 
-    @GetMapping("/{id}")
+    // 🔹 2. Obtener por ID (entidad completa)
+    @GetMapping("/entidad/{id}")
     public ResponseEntity<ProductoVariante> findById(@PathVariable("id") Long id) {
         try {
-            ProductoVariante productoVariante = service.read(id).get();
-            return new ResponseEntity<>(productoVariante, HttpStatus.OK);
+            Optional<ProductoVariante> productoVariante = service.read(id);
+            return productoVariante.map(value ->
+                            new ResponseEntity<>(value, HttpStatus.OK))
+                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // 🔹 3. Obtener por ID (DTO limpio para otros microservicios)
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductoVarianteDto> getVarianteById(@PathVariable("id") Long id) {
+        try {
+            ProductoVarianteDto dto = service.readProductoVarianteforId(id);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
+    // 🔹 4. Crear
     @PostMapping
     public ResponseEntity<ProductoVariante> createProductoVariante(@Valid @RequestBody ProductoVariante pv) {
         try {
@@ -54,8 +68,9 @@ public class ProductoVarianteController {
         }
     }
 
+    // 🔹 5. Eliminar
     @DeleteMapping("/{id}")
-    public ResponseEntity<ProductoVariante> deleteProductoVariante(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteProductoVariante(@PathVariable("id") Long id) {
         try {
             service.delete(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -64,19 +79,14 @@ public class ProductoVarianteController {
         }
     }
 
+    // 🔹 6. Actualizar
     @PutMapping("/{id}")
     public ResponseEntity<ProductoVariante> updateProductoVariante(@PathVariable("id") Long id, @Valid @RequestBody ProductoVariante pv) {
         Optional<ProductoVariante> productoVariante = service.read(id);
-        if (productoVariante.isEmpty()){
+        if (productoVariante.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(service.update(pv), HttpStatus.OK);
         }
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductoVarianteDto> getVarianteById(@PathVariable("id") Long id) {
-        ProductoVarianteDto dto = service.readProductoVarianteforId(id);
-        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 }

@@ -1,14 +1,15 @@
 server:
-  port: 8088
+  port: 9092
 
 spring:
   application:
-    name: msvc-order
+    name: msvc-payment
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5431/orderdb
+    url: jdbc:postgresql://localhost:5436/paymentdb
     username: postgres
     password: 1234
+
   jpa:
     hibernate:
       ddl-auto: create

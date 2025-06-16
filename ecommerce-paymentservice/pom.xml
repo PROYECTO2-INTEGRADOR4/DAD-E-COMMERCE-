@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+		                      https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<parent>
 		<groupId>com.mycompany.app</groupId>
 		<artifactId>EcommerceMicroservices</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.microservice.inventario</groupId>
-	<artifactId>ecommerce-inventoryservice</artifactId>
+
+	<groupId>com.ecommerce-paymentservice</groupId>
+	<artifactId>ecommerce-paymentservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ecommerce-inventoryservice</name>
-	<description>Spring Boot Microservice Inventario</description>
+	<name>ecommerce-paymentservice</name>
+	<description>Spring Boot Payment Service</description>
 
 	<properties>
 		<java.version>17</java.version>

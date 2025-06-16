@@ -3,7 +3,9 @@ package com.microservice.inventario.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.microservice.inventario.client.ProductoVarianteClient;
+import com.microservice.inventario.dto.InventarioConProductoDto;
+import com.microservice.inventario.dto.ProductoVarianteDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +19,13 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/inventarios")
 public class InventarioController {
 
-    @Autowired
-    private InventarioService service;
+    private final InventarioService service;
+    private final ProductoVarianteClient productoVarianteClient;
+
+    public InventarioController(InventarioService service, ProductoVarianteClient productoVarianteClient) {
+        this.service = service;
+        this.productoVarianteClient = productoVarianteClient;
+    }
 
     @GetMapping
     public ResponseEntity<List<Inventario>> readAll() {
@@ -80,4 +87,49 @@ public class InventarioController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // 🔥 Nuevo endpoint para consultar el producto variante desde el microservicio de productos
+    @GetMapping("/producto-variante/{id}")
+    public ResponseEntity<ProductoVarianteDto> obtenerProductoVariante(@PathVariable Long id) {
+        try {
+            ProductoVarianteDto dto = productoVarianteClient.obtenerProductoVariante(id);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/detalle")
+    public ResponseEntity<List<InventarioConProductoDto>> listarConProducto() {
+        try {
+            List<Inventario> inventarios = service.readAll();
+            if (inventarios.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            List<InventarioConProductoDto> resultado = inventarios.stream().map(inventario -> {
+                InventarioConProductoDto dto = new InventarioConProductoDto();
+                dto.setId(inventario.getId());
+                dto.setDisponible(inventario.getDisponible());
+                dto.setReservado(inventario.getReservado());
+                dto.setMinimo(inventario.getMinimo());
+                dto.setUltimaActualizacion(inventario.getUltimaActualizacion());
+                dto.setAlmacen(inventario.getAlmacen());
+
+                try {
+                    dto.setProductoVariante(productoVarianteClient.obtenerProductoVariante(inventario.getProductoVarianteId()));
+                } catch (Exception e) {
+                    // En producción lo ideal sería usar un fallback o log
+                    dto.setProductoVariante(null);
+                }
+
+                return dto;
+            }).toList();
+
+            return new ResponseEntity<>(resultado, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
