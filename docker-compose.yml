@@ -1,6 +1,21 @@
 version: '3'
 services:
 
+<<<<<<< HEAD
+=======
+  sv-gateway:
+    container_name: sv-gateway
+    build:
+      context: ./ecommerce-gateway
+    ports:
+      - 8080:8080
+    depends_on:
+      - db-users
+      - db-carts
+      - db-orders
+      - db-products
+
+>>>>>>> 3771c4a24003c716f2578e958b923eb18e4b9df3
 
   db-users:
     container_name: db-users

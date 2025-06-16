@@ -1,8 +1,8 @@
 package com.ecommerce.cartservice.controller;
 
 import com.ecommerce.cartservice.domain.Carrito;
-import com.ecommerce.cartservice.dto.CrearCarritoRequest;
 import com.ecommerce.cartservice.service.ICarritoService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -73,13 +73,15 @@ public class CarritoController {
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<Carrito> createCarritoUser(@RequestBody CrearCarritoRequest request) {
-        Carrito carrito = service.createCarritoForUser(request.getUserId());
+    public ResponseEntity<Carrito> createCarritoUser(HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("userId");
+        Carrito carrito = service.createCarritoForUser(userId);
         return new ResponseEntity<>(carrito, HttpStatus.CREATED);
     }
 
-    @GetMapping("/usuario/{userId}")
-    public ResponseEntity<Carrito> readCarritoUser(@PathVariable Long userId) {
+    @GetMapping("/usuario")
+    public ResponseEntity<Carrito> readCarritoUser(HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("userId");
         return service.readCarritoForUser(userId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

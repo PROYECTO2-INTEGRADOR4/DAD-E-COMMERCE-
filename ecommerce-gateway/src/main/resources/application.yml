@@ -1,0 +1,42 @@
+<<<<<<< HEAD
+=======
+server:
+  port: 8080
+
+spring:
+  application:
+    name: sv-gateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enable: true
+          lower-case-service-id: true
+
+      routes:
+        - id: msvc-product
+          uri: lb://msvc-product
+          predicates:
+            - Path=/products/**
+
+        - id: msvc-cart
+          uri: lb://msvc-cart
+          predicates:
+            - Path=/carts/**
+
+        - id: msvc-user
+          uri: lb://msvc-user
+          predicates:
+            - Path=/users/**
+  config:
+    import: optional:configserver:http://localhost:8888
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+>>>>>>> 3771c4a24003c716f2578e958b923eb18e4b9df3

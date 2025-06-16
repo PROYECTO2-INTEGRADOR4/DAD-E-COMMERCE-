@@ -41,21 +41,22 @@ public class IProductoVarianteServiceImpl implements IProductoVarianteService {
 
     @Override
     public ProductoVarianteDto readProductoVarianteforId(Long id) {
-        ProductoVariante pv = repository.findById(id)
+        ProductoVariante pv = repository.findByIdWithOpciones(id)
                 .orElseThrow(() -> new RuntimeException("No se encontro el id " + id));
-        ProductoVarianteDto pvDto = new ProductoVarianteDto();
-        pvDto.setId(pv.getId());
-        pvDto.setNombreproducto(pv.getProducto().getNombre());
-        pvDto.setPrecio(pv.getPrecio());
 
         Map<String, String> atributos = new HashMap<>();
+        System.out.println("VarianteOpciones: " + pv.getVarianteOpciones().size());
         for (VarianteOpcion vo: pv.getVarianteOpciones()) {
             String tipo = vo.getOpcion().getNombre();
             String valor = vo.getValor();
             atributos.put(tipo, valor);
         }
 
-        pvDto.setAtributos(atributos);
-        return pvDto;
+        return new ProductoVarianteDto(
+                pv.getId(),
+                pv.getProducto().getNombre(),
+                atributos,
+                pv.getPrecio()
+        );
     }
 }

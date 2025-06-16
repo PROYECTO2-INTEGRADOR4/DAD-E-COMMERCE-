@@ -19,7 +19,6 @@ public class ProductoVarianteController {
 
     private final IProductoVarianteService service;
 
-    // 🔹 1. Obtener todos
     @GetMapping
     public ResponseEntity<List<ProductoVariante>> readAll() {
         try {
@@ -33,31 +32,16 @@ public class ProductoVarianteController {
         }
     }
 
-    // 🔹 2. Obtener por ID (entidad completa)
-    @GetMapping("/entidad/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ProductoVariante> findById(@PathVariable("id") Long id) {
         try {
-            Optional<ProductoVariante> productoVariante = service.read(id);
-            return productoVariante.map(value ->
-                            new ResponseEntity<>(value, HttpStatus.OK))
-                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    // 🔹 3. Obtener por ID (DTO limpio para otros microservicios)
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductoVarianteDto> getVarianteById(@PathVariable("id") Long id) {
-        try {
-            ProductoVarianteDto dto = service.readProductoVarianteforId(id);
-            return new ResponseEntity<>(dto, HttpStatus.OK);
+            ProductoVariante productoVariante = service.read(id).get();
+            return new ResponseEntity<>(productoVariante, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    // 🔹 4. Crear
     @PostMapping
     public ResponseEntity<ProductoVariante> createProductoVariante(@Valid @RequestBody ProductoVariante pv) {
         try {
@@ -68,9 +52,8 @@ public class ProductoVarianteController {
         }
     }
 
-    // 🔹 5. Eliminar
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProductoVariante(@PathVariable("id") Long id) {
+    public ResponseEntity<ProductoVariante> deleteProductoVariante(@PathVariable("id") Long id) {
         try {
             service.delete(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -79,14 +62,32 @@ public class ProductoVarianteController {
         }
     }
 
-    // 🔹 6. Actualizar
     @PutMapping("/{id}")
     public ResponseEntity<ProductoVariante> updateProductoVariante(@PathVariable("id") Long id, @Valid @RequestBody ProductoVariante pv) {
         Optional<ProductoVariante> productoVariante = service.read(id);
-        if (productoVariante.isEmpty()) {
+        if (productoVariante.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(service.update(pv), HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/dto/{id}")
+    public ResponseEntity<ProductoVarianteDto> getVarianteById(@PathVariable("id") Long id) {
+        ProductoVarianteDto dto = service.readProductoVarianteforId(id);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+     // 2. Obtener por ID (entidad completa)
+    @GetMapping("/entidad/{id}")
+    public ResponseEntity<ProductoVariante> productoVarianteId(@PathVariable("id") Long id) {
+        try {
+            Optional<ProductoVariante> productoVariante = service.read(id);
+            return productoVariante.map(value ->
+                            new ResponseEntity<>(value, HttpStatus.OK))
+                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

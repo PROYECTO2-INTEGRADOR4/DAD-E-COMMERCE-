@@ -1,5 +1,6 @@
 package com.ecommerce.productservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,5 +27,6 @@ public class Opcion {
     private String estado;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "opcion")
+    @JsonIgnore
     private Set<VarianteOpcion> varianteOpcion;
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,5 +36,5 @@ public class ProductoVariante {
     private Producto producto;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productoVariante")
-    private Set<VarianteOpcion> varianteOpciones;
+    private List<VarianteOpcion> varianteOpciones;
 }
