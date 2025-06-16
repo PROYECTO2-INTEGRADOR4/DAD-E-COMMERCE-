@@ -4,7 +4,7 @@ services:
   sv-gateway:
     container_name: sv-gateway
     build:
-      context: ./sv-gateway
+      context: ./ecommerce-gateway
     ports:
       - 8080:8080
     depends_on:

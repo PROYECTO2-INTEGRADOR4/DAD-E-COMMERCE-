@@ -5,7 +5,6 @@ import com.ecommerce.productservice.dto.ProductoVarianteDto;
 import com.ecommerce.productservice.service.IProductoVarianteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductoVarianteController {
 
-    @Autowired
-    private IProductoVarianteService service;
+    private final IProductoVarianteService service;
 
     @GetMapping
     public ResponseEntity<List<ProductoVariante>> readAll() {
@@ -74,7 +72,7 @@ public class ProductoVarianteController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/dto/{id}")
     public ResponseEntity<ProductoVarianteDto> getVarianteById(@PathVariable("id") Long id) {
         ProductoVarianteDto dto = service.readProductoVarianteforId(id);
         return new ResponseEntity<>(dto, HttpStatus.OK);

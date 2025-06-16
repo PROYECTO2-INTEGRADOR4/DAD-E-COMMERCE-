@@ -7,6 +7,7 @@ import java.util.List;
 @Data
 public class AuthResponseDto {
     private String accessToken;
+    private Long userId;
     private String username;
     private List<String> roles;
 

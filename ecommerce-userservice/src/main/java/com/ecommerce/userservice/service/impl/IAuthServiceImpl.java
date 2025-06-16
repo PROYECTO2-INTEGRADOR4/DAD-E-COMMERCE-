@@ -1,7 +1,9 @@
 package com.ecommerce.userservice.service.impl;
 
 import com.ecommerce.userservice.config.JwtTokenProvider;
+import com.ecommerce.userservice.domain.Usuario;
 import com.ecommerce.userservice.dto.LoginDto;
+import com.ecommerce.userservice.repository.IUsuarioRepository;
 import com.ecommerce.userservice.service.IAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +19,8 @@ public class IAuthServiceImpl implements IAuthService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private IUsuarioRepository usuarioRepository;
 
     @Override
     public String login(LoginDto loginDto) {
@@ -27,7 +31,9 @@ public class IAuthServiceImpl implements IAuthService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String token = jwtTokenProvider.generateToken(authentication);
+        Usuario usuario = usuarioRepository.findByUsername(loginDto.getUsername()).orElseThrow();
+
+        String token = jwtTokenProvider.generateToken(authentication, usuario.getId());
 
         return token;
     }

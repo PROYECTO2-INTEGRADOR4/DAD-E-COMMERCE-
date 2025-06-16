@@ -40,7 +40,7 @@ public class ICarritoServiceImpl implements ICarritoService {
 
     @Override
     public Carrito createCarritoForUser(Long userId) {
-        Optional<Carrito> carrito = repository.findById(userId);
+        Optional<Carrito> carrito = repository.findByUserId(userId);
         if (carrito.isPresent()) {
             return carrito.get();
         }

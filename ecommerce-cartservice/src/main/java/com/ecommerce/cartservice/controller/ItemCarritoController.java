@@ -2,6 +2,7 @@ package com.ecommerce.cartservice.controller;
 
 import com.ecommerce.cartservice.domain.ItemCarrito;
 import com.ecommerce.cartservice.dto.AgregarItemRequest;
+import com.ecommerce.cartservice.dto.ItemCarritoResponseDto;
 import com.ecommerce.cartservice.service.IItemCarritoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -80,5 +81,10 @@ public class ItemCarritoController {
                 request.getCantidad()
         );
         return new ResponseEntity<>(nuevoItem, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/carrito/{carritoId}")
+    public ResponseEntity<List<ItemCarritoResponseDto>> listarItemsByCarrito(@PathVariable Long carritoId) {
+        return ResponseEntity.ok(service.listarItemsPorCarritoId(carritoId));
     }
 }

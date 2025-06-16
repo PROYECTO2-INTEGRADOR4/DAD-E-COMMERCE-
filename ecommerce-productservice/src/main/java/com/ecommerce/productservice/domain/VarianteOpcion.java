@@ -1,5 +1,6 @@
 package com.ecommerce.productservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,10 +26,12 @@ public class VarianteOpcion {
 
     @ManyToOne
     @JoinColumn(name = "productovariante_id", nullable = false)
+    @JsonIgnore
     private ProductoVariante productoVariante;
 
     @ManyToOne
     @JoinColumn(name = "opcion_id", nullable = false)
+    @JsonIgnore
     private Opcion opcion;
 
 }
