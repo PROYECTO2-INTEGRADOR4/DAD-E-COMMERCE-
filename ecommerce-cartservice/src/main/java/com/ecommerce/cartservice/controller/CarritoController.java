@@ -73,15 +73,15 @@ public class CarritoController {
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<Carrito> createCarritoUser(HttpServletRequest request) {
-        Long userId = (Long) request.getAttribute("userId");
+    public ResponseEntity<Carrito> createCarritoUser(@RequestHeader("userId") String userIdStr) {
+        Long userId = Long.parseLong(userIdStr);
         Carrito carrito = service.createCarritoForUser(userId);
         return new ResponseEntity<>(carrito, HttpStatus.CREATED);
     }
 
     @GetMapping("/usuario")
-    public ResponseEntity<Carrito> readCarritoUser(HttpServletRequest request) {
-        Long userId = (Long) request.getAttribute("userId");
+    public ResponseEntity<Carrito> readCarritoUser(@RequestHeader("userId") String userIdStr) {
+        Long userId = Long.parseLong(userIdStr);
         return service.readCarritoForUser(userId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

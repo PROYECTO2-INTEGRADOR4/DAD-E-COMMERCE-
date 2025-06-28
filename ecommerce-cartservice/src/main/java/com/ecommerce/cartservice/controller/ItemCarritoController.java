@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/itemcarrito")
+@RequestMapping("/api/item_carrito")
 @RequiredArgsConstructor
 public class ItemCarritoController {
 

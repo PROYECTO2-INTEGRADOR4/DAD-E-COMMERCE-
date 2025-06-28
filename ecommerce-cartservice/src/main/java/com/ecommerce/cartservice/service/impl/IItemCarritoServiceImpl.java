@@ -53,16 +53,22 @@ public class IItemCarritoServiceImpl implements IItemCarritoService {
         Carrito carrito = carritoRepository.findById(carritoId)
                 .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
         ProductoVarianteDto variante = productClient.getVariantesForId(productoVarianteId);
-        BigDecimal precio = variante.getPrecio();
 
-        ItemCarrito item = new ItemCarrito();
-        item.setCarrito(carrito);
-        item.setProductoVarianteId(productoVarianteId);
-        item.setCantidad(cantidad);
-        item.setPrecioUnitario(precio);
-        item.setEstado("A");
+        Optional<ItemCarrito> itemExistente = repository.findByCarritoIdAndProductoVarianteId(carritoId, productoVarianteId);
+        if (itemExistente.isPresent()) {
+            ItemCarrito itemCarrito = itemExistente.get();
+            itemCarrito.setCantidad(itemCarrito.getCantidad() + cantidad);
+            return repository.save(itemCarrito);
+        } else {
+            ItemCarrito item = new ItemCarrito();
+            item.setCarrito(carrito);
+            item.setProductoVarianteId(productoVarianteId);
+            item.setCantidad(cantidad);
+            item.setPrecioUnitario(variante.getPrecio());
+            item.setEstado("A");
 
-        return repository.save(item);
+            return repository.save(item);
+        }
     }
 
     @Override

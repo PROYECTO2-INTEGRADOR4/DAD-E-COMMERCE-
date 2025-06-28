@@ -8,35 +8,69 @@ spring:
     name: sv-gateway
 
   cloud:
+    config:
+      enabled: false
+
     gateway:
       discovery:
         locator:
-          enable: true
-          lower-case-service-id: true
+          enabled: true
 
       routes:
-        - id: msvc-product
-          uri: lb://msvc-product
+        - id: auth
+          uri: http://localhost:8090
           predicates:
-            - Path=/products/**
+            - Path=/auth/**
 
-        - id: msvc-cart
-          uri: lb://msvc-cart
+        - id: rol
+          uri: http://localhost:8090
           predicates:
-            - Path=/carts/**
+            - Path=/api/rol/**
 
-        - id: msvc-user
-          uri: lb://msvc-user
+        - id: usuario
+          uri: http://localhost:8090
           predicates:
-            - Path=/users/**
-  config:
-    import: optional:configserver:http://localhost:8888
+            - Path=/api/usuario/**
 
-eureka:
-  instance:
-    hostname: localhost
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+        - id: carritos
+          uri: http://localhost:8085
+          predicates:
+            - Path=/api/carrito/**
+
+        - id: itemcarritos
+          uri: http://localhost:8085
+          predicates:
+            - Path=/api/item_carrito/**
+
+        - id: categorias
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/categoria/**
+
+        - id: marcas
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/marca/**
+
+        - id: opciones
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/opcion/**
+
+        - id: productos
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/producto/**
+
+        - id: productovariantes
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/producto_variante/**
+
+        - id: varianteopciones
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/variante_opcion/**
+
 
 >>>>>>> 3771c4a24003c716f2578e958b923eb18e4b9df3

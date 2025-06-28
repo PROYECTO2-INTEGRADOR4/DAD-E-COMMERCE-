@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/varianteOpcion")
+@RequestMapping("/api/variante_opcion")
 @RequiredArgsConstructor
 public class VarianteOpcionController {
 
