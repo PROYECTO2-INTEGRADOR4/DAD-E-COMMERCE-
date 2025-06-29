@@ -74,17 +74,17 @@ public class ItemCarritoController {
     }
 
     @PostMapping("/agregar")
-    public ResponseEntity<ItemCarrito> agregarItemCarrito(@RequestBody AgregarItemRequest request) {
+    public ResponseEntity<ItemCarrito> agregarItemCarrito(@RequestBody AgregarItemRequest request, @RequestHeader("userId") Long userId) {
         ItemCarrito nuevoItem = service.addItemCarrito(
-                request.getCarritoId(),
+                userId,
                 request.getProductoVarianteId(),
                 request.getCantidad()
         );
         return new ResponseEntity<>(nuevoItem, HttpStatus.CREATED);
     }
 
-    @GetMapping("/carrito/{carritoId}")
-    public ResponseEntity<List<ItemCarritoResponseDto>> listarItemsByCarrito(@PathVariable Long carritoId) {
-        return ResponseEntity.ok(service.listarItemsPorCarritoId(carritoId));
+    @GetMapping("/carrito")
+    public ResponseEntity<List<ItemCarritoResponseDto>> listarItemsByCarrito(@RequestHeader("userId") Long userId) {
+        return ResponseEntity.ok(service.listarItemsPorCarritoId(userId));
     }
 }

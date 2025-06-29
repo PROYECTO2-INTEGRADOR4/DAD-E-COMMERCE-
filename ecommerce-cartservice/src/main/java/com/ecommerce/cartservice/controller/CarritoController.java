@@ -1,6 +1,7 @@
 package com.ecommerce.cartservice.controller;
 
 import com.ecommerce.cartservice.domain.Carrito;
+import com.ecommerce.cartservice.dto.ItemCarritoResponseDto;
 import com.ecommerce.cartservice.service.ICarritoService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -85,5 +86,11 @@ public class CarritoController {
         return service.readCarritoForUser(userId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/items/ids")
+    public ResponseEntity<List<ItemCarritoResponseDto>> obtenerItemsPorIds(@RequestBody List<Long> itemIds, @RequestHeader("userId") Long userId ) {
+        List<ItemCarritoResponseDto> items = service.obtnerItemsPorIds(itemIds, userId);
+        return new ResponseEntity<>(items, HttpStatus.OK);
     }
 }

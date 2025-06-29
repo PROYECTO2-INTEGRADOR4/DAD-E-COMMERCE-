@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AgregarItemRequest {
-    private Long carritoId;
     private Long productoVarianteId;
     private Integer cantidad;
 }

@@ -49,12 +49,12 @@ public class IItemCarritoServiceImpl implements IItemCarritoService {
     }
 
     @Override
-    public ItemCarrito addItemCarrito(Long carritoId, Long productoVarianteId, Integer cantidad) {
-        Carrito carrito = carritoRepository.findById(carritoId)
-                .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
+    public ItemCarrito addItemCarrito(Long userId, Long productoVarianteId, Integer cantidad) {
+        Carrito carrito = carritoRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("Carrito no encontrado para el Usuario"));
         ProductoVarianteDto variante = productClient.getVariantesForId(productoVarianteId);
 
-        Optional<ItemCarrito> itemExistente = repository.findByCarritoIdAndProductoVarianteId(carritoId, productoVarianteId);
+        Optional<ItemCarrito> itemExistente = repository.findByCarritoIdAndProductoVarianteId(carrito.getId(), productoVarianteId);
         if (itemExistente.isPresent()) {
             ItemCarrito itemCarrito = itemExistente.get();
             itemCarrito.setCantidad(itemCarrito.getCantidad() + cantidad);
@@ -72,12 +72,15 @@ public class IItemCarritoServiceImpl implements IItemCarritoService {
     }
 
     @Override
-    public List<ItemCarritoResponseDto> listarItemsPorCarritoId(Long carritoId) {
-        List<ItemCarrito> items = repository.findByCarritoId(carritoId);
+    public List<ItemCarritoResponseDto> listarItemsPorCarritoId(Long userId) {
+        Carrito carrito = carritoRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("Carrito no encontrado para el Usuario"));
+
+        List<ItemCarrito> items = repository.findByCarritoId(carrito.getId());
         List<ItemCarritoResponseDto> respuesta = new ArrayList<>();
+
         for (ItemCarrito item : items) {
-            ProductoVarianteDto variante = productClient
-                    .getVariantesForId(item.getProductoVarianteId());
+            ProductoVarianteDto variante = productClient.getVariantesForId(item.getProductoVarianteId());
             ItemCarritoResponseDto dto = new ItemCarritoResponseDto();
             dto.setId(item.getId());
             dto.setProductoVarianteId(item.getProductoVarianteId());

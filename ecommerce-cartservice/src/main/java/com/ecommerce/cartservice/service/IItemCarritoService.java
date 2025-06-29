@@ -13,6 +13,6 @@ public interface IItemCarritoService {
     void delete(Long id);
     Optional<ItemCarrito> read(Long id);
     List<ItemCarrito> readAll();
-    ItemCarrito addItemCarrito(Long carritoId, Long productoVarianteId, Integer cantidad);
-    List<ItemCarritoResponseDto> listarItemsPorCarritoId(Long carritoId);
+    ItemCarrito addItemCarrito(Long userId, Long productoVarianteId, Integer cantidad);
+    List<ItemCarritoResponseDto> listarItemsPorCarritoId(Long userId);
 }

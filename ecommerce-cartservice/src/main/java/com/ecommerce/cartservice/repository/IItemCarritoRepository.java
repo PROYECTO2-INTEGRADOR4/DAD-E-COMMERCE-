@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface IItemCarritoRepository extends JpaRepository<ItemCarrito, Long> {
+
     List<ItemCarrito> findByCarritoId(Long carritoId);
     Optional<ItemCarrito> findByCarritoIdAndProductoVarianteId(Long carritoId, Long productoVarianteId);
 }
