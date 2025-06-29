@@ -25,12 +25,4 @@ public class Rol {
     @Column(name = "estado")
     private String estado;
 
-    @ManyToMany
-    @JoinTable(
-            name = "rol_usuario",
-            joinColumns = @JoinColumn(name = "rol_id"),
-            inverseJoinColumns = @JoinColumn(name = "usuario_id")
-    )
-    private Set<Usuario> usuarios;
-
 }

@@ -45,7 +45,7 @@ public class AuthController {
         authResponseDto.setUsername(usuario.getUsername());
         authResponseDto.setUserId(usuario.getId());
         authResponseDto.setRoles(
-                usuario.getRoles().stream()
+                        usuario.getRoles().stream()
                         .map(Rol::getNombre)
                         .collect(Collectors.toList())
         );

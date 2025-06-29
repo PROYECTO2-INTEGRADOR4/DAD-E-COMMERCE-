@@ -27,7 +27,13 @@ public class Usuario {
     @Column(name = "estado")
     private String estado;
 
-    @ManyToMany(mappedBy = "usuarios", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "usuarios_roles",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "rol_id")
+    )
     private Set<Rol> roles;
+
+
 
 }
