@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 server:
   port: 8080
 
@@ -71,6 +69,3 @@ spring:
           uri: http://localhost:9090
           predicates:
             - Path=/api/variante_opcion/**
-
-
->>>>>>> 3771c4a24003c716f2578e958b923eb18e4b9df3
