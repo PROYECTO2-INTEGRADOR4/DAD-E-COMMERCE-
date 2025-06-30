@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/shipments") // Puedes cambiar "shipments" por "envios" si deseas
+@RequestMapping("/api/seguimiento") // Puedes cambiar "shipments" por "envios" si deseas
 @CrossOrigin(origins = "*") // Permite peticiones desde cualquier frontend
 public class SeguimientoController {
     @Autowired
