@@ -2,9 +2,7 @@ package com.ecommerce.userservice.controller;
 
 import com.ecommerce.userservice.domain.Rol;
 import com.ecommerce.userservice.domain.Usuario;
-import com.ecommerce.userservice.dto.AuthResponseDto;
-import com.ecommerce.userservice.dto.LoginDto;
-import com.ecommerce.userservice.dto.RegistroDto;
+import com.ecommerce.userservice.dto.*;
 import com.ecommerce.userservice.service.IAuthService;
 import com.ecommerce.userservice.service.IUsuarioService;
 import lombok.AllArgsConstructor;
@@ -29,31 +27,38 @@ public class AuthController {
     @Autowired
     private IUsuarioService usuarioService;
 
-    // Build Login REST API
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDto> login(@RequestBody LoginDto loginDto){
+    public ResponseEntity<AuthResponseDto> login(@RequestBody LoginDto loginDto) {
+        try {
+            String token = authService.login(loginDto);
 
-        String token = authService.login(loginDto);
+            var usuarioOpt = usuarioService.findByUsername(loginDto.getUsername());
+            if (!usuarioOpt.isPresent()) {
+                return new ResponseEntity("Usuario no encontrado", HttpStatus.UNAUTHORIZED);
+            }
 
-        var usuarioOpt = usuarioService.findByUsername(loginDto.getUsername());
-        if (!usuarioOpt.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            var usuario = usuarioOpt.get();
+
+            AuthResponseDto authResponseDto = new AuthResponseDto();
+            authResponseDto.setAccessToken(token);
+            authResponseDto.setUsername(usuario.getUsername());
+            authResponseDto.setUserId(usuario.getId());
+            authResponseDto.setRoles(
+                    usuario.getRoles().stream()
+                            .map(Rol::getNombre)
+                            .collect(Collectors.toList())
+            );
+
+            return new ResponseEntity<>(authResponseDto, HttpStatus.OK);
+
+        } catch (org.springframework.security.authentication.BadCredentialsException ex) {
+            return new ResponseEntity("Contraseña incorrecta", HttpStatus.UNAUTHORIZED);
+
+        } catch (Exception ex) {
+            return new ResponseEntity("Error interno: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        var usuario = usuarioOpt.get();
-
-        AuthResponseDto authResponseDto = new AuthResponseDto();
-        authResponseDto.setAccessToken(token);
-        authResponseDto.setUsername(usuario.getUsername());
-        authResponseDto.setUserId(usuario.getId());
-        authResponseDto.setRoles(
-                        usuario.getRoles().stream()
-                        .map(Rol::getNombre)
-                        .collect(Collectors.toList())
-        );
-
-        return new ResponseEntity<>(authResponseDto, HttpStatus.OK);
     }
+
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegistroDto dto) {
@@ -63,5 +68,17 @@ public class AuthController {
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/solicitar")
+    public ResponseEntity<?> solicitarReset(@RequestBody SolicitarCodDto dto) {
+        authService.solicitarCod(dto);
+        return ResponseEntity.ok("Se ha enviado un código al correo");
+    }
+
+    @PostMapping("/confirmar")
+    public ResponseEntity<?> confirmarReset(@RequestBody RestPasswordDto dto) {
+        Usuario usuario = authService.restPassword(dto);
+        return ResponseEntity.ok("Contraseña actualizada con éxito");
     }
 }

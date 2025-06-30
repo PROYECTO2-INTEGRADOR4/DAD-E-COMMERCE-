@@ -3,8 +3,6 @@ package com.ecommerce.userservice.dto;
 import lombok.Data;
 
 @Data
-public class RegistroDto {
-    private String username;
+public class SolicitarCodDto {
     private String email;
-    private String password;
 }
