@@ -3,11 +3,6 @@ package com.ecommerce_envioservice.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-<<<<<<< HEAD
-=======
-import java.util.List;
-
->>>>>>> 596dad4 (Cambios envios probado)
 @Entity
 @Data
 @NoArgsConstructor
@@ -30,8 +25,5 @@ public class Transportista {
     @Column(name = "estado", length = 20)
     private String estado; // ACTIVO, DISPONIBLE, OCUPADO, INACTIVO
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 596dad4 (Cambios envios probado)
 }

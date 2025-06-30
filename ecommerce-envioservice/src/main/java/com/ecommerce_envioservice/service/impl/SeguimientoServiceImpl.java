@@ -1,9 +1,5 @@
 package com.ecommerce_envioservice.service.impl;
 
-<<<<<<< HEAD
-=======
-import com.ecommerce_envioservice.dto.SeguimientoDto;
->>>>>>> 596dad4 (Cambios envios probado)
 import com.ecommerce_envioservice.entity.Seguimiento;
 import com.ecommerce_envioservice.repository.SeguimientoRepository;
 import com.ecommerce_envioservice.service.SeguimientoService;
@@ -43,22 +39,4 @@ public class SeguimientoServiceImpl implements SeguimientoService {
     public List<Seguimiento> readAll() {
         return seguimientoRepository.findAll();
     }
-<<<<<<< HEAD
 }
-=======
-
-    public SeguimientoDto convertToSeguimientoDTO(Seguimiento seguimiento) {
-        SeguimientoDto dto = new SeguimientoDto();
-        dto.setId(seguimiento.getId());
-        dto.setEstado(seguimiento.getEstado());
-        dto.setUbicacionActual(seguimiento.getUbicacionActual());
-        dto.setObservaciones(seguimiento.getObservaciones());
-        dto.setFechaHoraRegistro(seguimiento.getFechaHoraRegistro());
-        if (seguimiento.getEnvio() != null) {
-            dto.setEnvioId(seguimiento.getEnvio().getId());
-        }
-        return dto;
-}
-}
-
->>>>>>> 596dad4 (Cambios envios probado)

@@ -1,43 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/roro
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10
+      idle-timeout: 30000
+      pool-name: HikariCP
+      max-lifetime: 600000
+      connection-timeout: 30000
 
-  server:
-    port: 9096
-
-  spring:
-    application:
-      name: msvc-review
-
-    datasource:
-      driver-class-name: org.postgresql.Driver
-      url: jdbc:postgresql://localhost:5439/notificationdb
-      username: postgres
-      password: 1234
-
-    jpa:
+  jpa:
+    hibernate:
+      ddl-auto: update   # create, update, validate, none según necesidad
+    properties:
       hibernate:
-        ddl-auto: update
-      show-sql: true
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    format-sql: true
+    open-in-view: false   # para evitar warning de queries en la vista
 
-      logging:
-        level:
-          com.zaxxer.hikari: DEBUG    # muestra configuraciÃ³n Hikari
-          org.hibernate.SQL: DEBUG     # muestra SQL DDL
-
-    twilio:
-      accountSid: YOUR_ACCOUNT_SID
-      authToken: YOUR_AUTH_TOKEN
-      fromPhone: YOUR_TWILIO_PHONE_NUMBER
-
-    config:
-      import: optional:configserver:http://localhost:8888
-
-  eureka:
-    instance:
-      hostname: localhost
-    client:
-      service-url:
-        defaultZone: http://localhost:8761/eureka
-
-
+logging:
+  level:
+    org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl: DEBUG
+    com.zaxxer.hikari: DEBUG
