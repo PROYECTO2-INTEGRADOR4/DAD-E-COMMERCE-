@@ -64,6 +64,7 @@ public class UsuarioController {
 
         Map<String, Object> response = new HashMap<>();
         response.put("username", usuario.getUsername());
+        response.put("email", usuario.getEmail());
         response.put("password", usuario.getPassword());
         response.put("estado", usuario.getEstado());
         response.put("roles", usuario.getRoles().stream()

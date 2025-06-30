@@ -22,6 +22,8 @@ public class Usuario {
     private Long id;
     @Column(name = "username")
     private String username;
+    @Column(name = "email")
+    private String email;
     @Column(name = "password")
     private String password;
     @Column(name = "estado")
@@ -33,7 +35,5 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name = "rol_id")
     )
     private Set<Rol> roles;
-
-
 
 }

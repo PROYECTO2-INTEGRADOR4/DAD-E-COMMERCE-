@@ -1,8 +1,10 @@
 package com.ecommerce.userservice.controller;
 
 import com.ecommerce.userservice.domain.Rol;
+import com.ecommerce.userservice.domain.Usuario;
 import com.ecommerce.userservice.dto.AuthResponseDto;
 import com.ecommerce.userservice.dto.LoginDto;
+import com.ecommerce.userservice.dto.RegistroDto;
 import com.ecommerce.userservice.service.IAuthService;
 import com.ecommerce.userservice.service.IUsuarioService;
 import lombok.AllArgsConstructor;
@@ -51,5 +53,15 @@ public class AuthController {
         );
 
         return new ResponseEntity<>(authResponseDto, HttpStatus.OK);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegistroDto dto) {
+        try {
+            Usuario usuario = authService.registerUser(dto);
+            return new ResponseEntity<>(usuario, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 }
