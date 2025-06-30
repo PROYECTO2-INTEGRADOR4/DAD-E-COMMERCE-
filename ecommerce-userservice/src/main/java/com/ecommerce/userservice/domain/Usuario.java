@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -26,6 +27,10 @@ public class Usuario {
     private String email;
     @Column(name = "password")
     private String password;
+    @Column(name = "codigo_reset")
+    private String codigoReset;
+    @Column(name = "reset_expira")
+    private LocalDateTime resetExpira;
     @Column(name = "estado")
     private String estado;
 
