@@ -13,8 +13,8 @@
         <module name="ecommerce-eureka" />
         <module name="reviewservice" />
         <module name="ecommerce-orderservice" />
-        <module name="ecommerce-inventoryservice" />
         <module name="ecommerce-envioservice" />
+        <module name="ecommerce-inventoryservice" />
         <module name="ecommerce-gateway" />
         <module name="ecommerce-config" />
         <module name="ecommerce-paymentservice" />
@@ -24,7 +24,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
         <module name="ecommerce-notificationservice" />
