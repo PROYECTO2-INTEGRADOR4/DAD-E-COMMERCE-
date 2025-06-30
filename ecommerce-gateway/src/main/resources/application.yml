@@ -1,0 +1,81 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: sv-gateway
+
+  cloud:
+    config:
+      enabled: false
+
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+
+      routes:
+        - id: auth
+          uri: http://localhost:8090
+          predicates:
+            - Path=/auth/**
+
+        - id: rol
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/rol/**
+
+        - id: usuario
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/usuario/**
+
+        - id: carritos
+          uri: http://localhost:8085
+          predicates:
+            - Path=/api/carrito/**
+
+        - id: itemcarritos
+          uri: http://localhost:8085
+          predicates:
+            - Path=/api/item_carrito/**
+
+        - id: categorias
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/categoria/**
+
+        - id: marcas
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/marca/**
+
+        - id: opciones
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/opcion/**
+
+        - id: productos
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/producto/**
+
+        - id: catalogo
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/public/**
+
+        - id: productovariantes
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/producto_variante/**
+
+        - id: varianteopciones
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/variante_opcion/**
+
+        - id: orden
+          uri: http://localhost:8088
+          predicates:
+            - Path=/api/orden/**

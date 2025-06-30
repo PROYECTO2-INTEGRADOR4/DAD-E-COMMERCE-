@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.2.5</version>
+    <relativePath/>
+  </parent>
+
+
+  <groupId>com.mycompany.app</groupId>
+  <artifactId>EcommerceMicroservices</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>EcommerceMicroservices</name>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>ecommerce-gateway</module>
+    <module>ecommerce-eureka</module>
+    <module>ecommerce-config</module>
+    <module>ecommerce-productservice</module>
+    <module>ecommerce-userservice</module>
+    <module>ecommerce-cartservice</module>
+    <module>ecommerce-orderservice</module>
+    <module>ecommerce-inventoryservice</module>
+    <module>ecommerce-reviewservice</module>
+    <module>ecommerce-notificationservice</module>
+    <module>ecommerce-envioservice</module>
+    <module>ecommerce-paymentservice</module>
+  </modules>
+
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.28</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>3.5.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+
+</project>
