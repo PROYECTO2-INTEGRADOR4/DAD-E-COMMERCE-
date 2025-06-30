@@ -3,11 +3,14 @@ package com.ecommerce_paymentservice.controller;
 import java.util.List;
 import java.util.Optional;
 
+<<<<<<< HEAD
 import com.ecommerce_paymentservice.client.OrdenClient;
 import com.ecommerce_paymentservice.config.JwtUtil;
 import com.ecommerce_paymentservice.entity.MetodoDePago;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+=======
+>>>>>>> 001c87ff004fb87d5103f9b5844071a2f4d27d02
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/pagos")
+<<<<<<< HEAD
 @RequiredArgsConstructor
 public class PagoController {
 
@@ -72,6 +76,48 @@ public class PagoController {
         }
     }
 
+=======
+public class PagoController {
+
+    @Autowired
+    private PagoService service;
+
+    @GetMapping
+    public ResponseEntity<List<Pago>> readAll() {
+        try {
+            List<Pago> list = service.readAll();
+            if (list.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<Pago> create(@Valid @RequestBody Pago pago) {
+        try {
+            Pago created = service.create(pago);
+            return new ResponseEntity<>(created, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Pago> getById(@PathVariable Long id) {
+        try {
+            Optional<Pago> opt = service.read(id);
+            if (opt.isPresent()) {
+                return new ResponseEntity<>(opt.get(), HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+>>>>>>> 001c87ff004fb87d5103f9b5844071a2f4d27d02
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable Long id) {
@@ -97,8 +143,11 @@ public class PagoController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 001c87ff004fb87d5103f9b5844071a2f4d27d02
 }

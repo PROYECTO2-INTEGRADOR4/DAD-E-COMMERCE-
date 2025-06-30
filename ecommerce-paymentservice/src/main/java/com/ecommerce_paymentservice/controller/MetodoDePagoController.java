@@ -3,9 +3,15 @@ package com.ecommerce_paymentservice.controller;
 import java.util.List;
 import java.util.Optional;
 
+<<<<<<< HEAD
 import com.ecommerce_paymentservice.config.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+=======
+import com.ecommerce_paymentservice.client.UsuarioClient;
+import com.ecommerce_paymentservice.dto.MetodoDePagoConUsuarioDto;
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> 001c87ff004fb87d5103f9b5844071a2f4d27d02
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +23,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/metodos")
+<<<<<<< HEAD
 @RequiredArgsConstructor
 public class MetodoDePagoController {
 
@@ -67,6 +74,47 @@ public class MetodoDePagoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Error interno del servidor: " + e.getMessage());
+=======
+public class MetodoDePagoController {
+
+    @Autowired
+    private MetodoDePagoService service;
+    private UsuarioClient usuarioClient;
+
+    @GetMapping
+    public ResponseEntity<List<MetodoDePago>> readAll() {
+        try {
+            List<MetodoDePago> list = service.readAll();
+            if (list.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<MetodoDePago> create(@Valid @RequestBody MetodoDePago metodoDePago) {
+        try {
+            MetodoDePago created = service.create(metodoDePago);
+            return new ResponseEntity<>(created, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MetodoDePago> getById(@PathVariable Long id) {
+        try {
+            Optional<MetodoDePago> opt = service.read(id);
+            if (opt.isPresent()) {
+                return new ResponseEntity<>(opt.get(), HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+>>>>>>> 001c87ff004fb87d5103f9b5844071a2f4d27d02
         }
     }
 
@@ -94,4 +142,32 @@ public class MetodoDePagoController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+<<<<<<< HEAD
+=======
+
+    @GetMapping("/detalle")
+    public ResponseEntity<List<MetodoDePagoConUsuarioDto>> listarConUsuario() {
+        try {
+            List<MetodoDePago> metodos = service.readAll();
+            if (metodos.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            List<MetodoDePagoConUsuarioDto> resultado = metodos.stream().map(m -> {
+                MetodoDePagoConUsuarioDto dto = new MetodoDePagoConUsuarioDto();
+                dto.setMetodoDePago(m);
+                try {
+                    dto.setUsuario(usuarioClient.obtenerUsuarioPorId(m.getUsuarioId()));
+                } catch (Exception e) {
+                    dto.setUsuario(null); // o puedes manejar con logs
+                }
+                return dto;
+            }).toList();
+
+            return new ResponseEntity<>(resultado, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+>>>>>>> 001c87ff004fb87d5103f9b5844071a2f4d27d02
 }
