@@ -8,6 +8,9 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtUtil {
@@ -30,6 +33,19 @@ public class JwtUtil {
         Claims claims = parser.parseSignedClaims(token).getPayload();
         Object userId = claims.get("userId");
         return userId != null ? userId.toString() : null;
+    }
+
+    public List<String> getRoleFromToken(String token) {
+        Claims claims = parser.parseSignedClaims(token).getPayload();
+        Object roles = claims.get("role");
+
+        if (roles instanceof List<?>) {
+            return ((List<?>) roles)
+                    .stream()
+                    .map(Object::toString)
+                    .collect(Collectors.toList());
+        }
+        return Collections.singletonList(roles.toString());
     }
 
 }

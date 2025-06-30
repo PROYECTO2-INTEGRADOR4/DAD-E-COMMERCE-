@@ -1,6 +1,7 @@
 package com.ecommerce.orderservice.controller;
 
 import com.ecommerce.orderservice.domain.Orden;
+import com.ecommerce.orderservice.dto.CrearOrdenRequest;
 import com.ecommerce.orderservice.service.OrdenService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -69,5 +70,11 @@ public class OrdenController {
         } else {
             return new ResponseEntity<>(service.update(o), HttpStatus.OK);
         }
+    }
+
+    @PostMapping("/crear")
+    public ResponseEntity<Orden> crearOrdenPorId(@RequestHeader("userId") Long userId, @RequestBody CrearOrdenRequest request) {
+        Orden orden = service.crearOrden(request, userId);
+        return new ResponseEntity<>(orden, HttpStatus.CREATED);
     }
 }

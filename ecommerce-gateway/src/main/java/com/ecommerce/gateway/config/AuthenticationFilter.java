@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class AuthenticationFilter implements GlobalFilter, Ordered {
@@ -30,7 +32,6 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         String path = exchange.getRequest().getURI().getPath();
         System.out.println(">> [JWT Filter] Request intercepted: " + path);
 
-        // No filtrar el login o registro
         if (path.startsWith("/auth")) {
             System.out.println(">> [JWT Filter] Ruta pública, sin validación JWT.");
             return chain.filter(exchange);
@@ -53,6 +54,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             System.out.println(">> [JWT Filter] Token válido.");
 
             String userId = jwtUtil.getUserIdFromToken(token);
+            List<String> role = jwtUtil.getRoleFromToken(token);
             System.out.println(">> [JWT Filter] userId desde token: " + userId);
 
             if (userId == null || userId.isBlank()) {
@@ -64,8 +66,9 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             ServerHttpRequest mutatedRequest = exchange.getRequest()
                     .mutate()
                     .headers(httpHeaders -> {
-                        httpHeaders.remove(HttpHeaders.AUTHORIZATION); // quita Authorization
-                        httpHeaders.add("userId", userId);          // agrega X-User-Id
+                        httpHeaders.remove(HttpHeaders.AUTHORIZATION);
+                        httpHeaders.add("userId", userId);
+                        httpHeaders.add("role", String.join(",", role));
                     })
                     .build();
 
@@ -79,7 +82,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return -1; // asegura que tu filtro se ejecute antes que otros
+        return -1;
     }
 
 }
