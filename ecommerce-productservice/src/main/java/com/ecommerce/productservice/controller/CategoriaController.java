@@ -18,7 +18,7 @@ public class CategoriaController {
 
     private final ICategoriaService service;
 
-    @GetMapping
+    @GetMapping("/public")
     public ResponseEntity<List<Categoria>> readAll() {
         try {
             List<Categoria> categorias = service.readAll();

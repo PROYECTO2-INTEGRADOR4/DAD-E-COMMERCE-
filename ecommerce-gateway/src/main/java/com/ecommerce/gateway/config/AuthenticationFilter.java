@@ -32,7 +32,8 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         String path = exchange.getRequest().getURI().getPath();
         System.out.println(">> [JWT Filter] Request intercepted: " + path);
 
-        if (path.startsWith("/auth")) {
+        if (path.startsWith("/auth") || path.startsWith("/api/public") || path.startsWith("/api/categoria/public")
+        || path.startsWith("/api/marca/public")) {
             System.out.println(">> [JWT Filter] Ruta pública, sin validación JWT.");
             return chain.filter(exchange);
         }

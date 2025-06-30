@@ -17,8 +17,9 @@ public class SecurityConfig {
         return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchange -> exchange
-                        .pathMatchers("/auth/**").permitAll()  // login y registro libres
-                        .anyExchange().permitAll()              // el filtro se encarga de validar
+                        .pathMatchers("/auth/**").permitAll()
+                        .pathMatchers("/api/public/**", "/api/categoria/public", "api/marca/public").permitAll()
+                        .anyExchange().permitAll()
                 )
                 .build();
     }

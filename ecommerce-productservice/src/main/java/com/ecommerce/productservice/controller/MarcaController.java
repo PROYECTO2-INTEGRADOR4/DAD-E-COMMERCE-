@@ -18,7 +18,7 @@ public class MarcaController {
 
     private final IMarcaService service;
 
-    @GetMapping
+    @GetMapping("/public")
     public ResponseEntity<List<Marca>> readAll() {
         try {
             List<Marca> marcas = service.readAll();
