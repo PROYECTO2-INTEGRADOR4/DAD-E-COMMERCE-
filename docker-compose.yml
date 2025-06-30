@@ -12,6 +12,17 @@ services:
     ports:
       - 5438:5432
 
+  db-notification:
+    container_name: db-notification
+    image: postgres:15.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: notificationdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - 5439:5432
+
 
   db-carts:
     container_name: db-carts

@@ -1,5 +1,9 @@
 package com.ecommerce_envioservice.service.impl;
 
+<<<<<<< HEAD
+=======
+import com.ecommerce_envioservice.dto.EnvioDto;
+>>>>>>> 596dad4 (Cambios envios probado)
 import com.ecommerce_envioservice.entity.Envio;
 import com.ecommerce_envioservice.repository.EnvioRepository;
 import com.ecommerce_envioservice.service.EnvioService;
@@ -28,7 +32,10 @@ public class EnvioServiceImpl implements EnvioService {
     @Override
     public void delete(Long id) {
         envioRepository.deleteById(id);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 596dad4 (Cambios envios probado)
     }
 
     @Override
@@ -40,4 +47,21 @@ public class EnvioServiceImpl implements EnvioService {
     public List<Envio> readAll() {
         return envioRepository.findAll();
     }
+<<<<<<< HEAD
+=======
+
+    public EnvioDto convertToEnvioDTO(Envio envio) {
+        EnvioDto dto = new EnvioDto();
+        dto.setId(envio.getId());
+        dto.setDireccionDestino(envio.getDireccionDestino());
+        dto.setEstado(envio.getEstado());
+        dto.setFechaEnvio(envio.getFechaEnvio());
+        dto.setFechaEntregaEstimada(envio.getFechaEntregaEstimada());
+        if (envio.getTransportista() != null) {
+            dto.setTransportistaId(envio.getTransportista().getId());
+        }
+        return dto;
+    }
+
+>>>>>>> 596dad4 (Cambios envios probado)
 }

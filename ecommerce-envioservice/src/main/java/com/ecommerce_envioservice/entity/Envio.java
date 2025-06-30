@@ -1,11 +1,20 @@
 package com.ecommerce_envioservice.entity;
 
+<<<<<<< HEAD
+=======
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+>>>>>>> 596dad4 (Cambios envios probado)
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Date;
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> 596dad4 (Cambios envios probado)
 
 @Entity
 @Data
@@ -27,4 +36,16 @@ public class Envio {
     @Column(name = "fechaEntregaEstimada")
     @DateTimeFormat
     private LocalDate fechaEntregaEstimada;
+<<<<<<< HEAD
+=======
+
+    @OneToMany(mappedBy = "envio", cascade = CascadeType.ALL)
+    private List<Seguimiento> seguimientos;
+
+    @ManyToOne
+    @JoinColumn(name = "transportista_id")
+    @JsonIgnoreProperties("envios")
+    private Transportista transportista;
+
+>>>>>>> 596dad4 (Cambios envios probado)
 }
