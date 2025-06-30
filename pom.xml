@@ -27,6 +27,7 @@
     <module>ecommerce-cartservice</module>
     <module>ecommerce-orderservice</module>
     <module>ecommerce-inventoryservice</module>
+    <module>ecommerce-reviewservice</module>
     <module>ecommerce-notificationservice</module>
     <module>ecommerce-envioservice</module>
     <module>ecommerce-paymentservice</module>

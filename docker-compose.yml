@@ -24,6 +24,16 @@ services:
     ports:
       - 5435:5432
 
+  db-review:
+    container_name: db-review
+    image: postgres:15.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: reviewdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - 5437:5432
 
   db-products:
     container_name: db-products
