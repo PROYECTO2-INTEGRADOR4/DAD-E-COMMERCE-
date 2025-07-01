@@ -79,3 +79,18 @@ spring:
           uri: http://localhost:8088
           predicates:
             - Path=/api/orden/**
+
+        - id: notification
+          uri: lb://msvc-notification
+          predicates:
+            - Path=/api/notification/**
+
+        - id: review
+          uri: lb://msvc-review
+          predicates:
+            - Path=/api/reviews/**
+
+        - id: payment
+          uri: lb://msvc-payment
+          predicates:
+            - Path=/api/payment/**

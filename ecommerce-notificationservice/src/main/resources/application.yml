@@ -1,28 +1,41 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/roro
-    username: postgres
-    password: admin
-    driver-class-name: org.postgresql.Driver
-    hikari:
-      minimum-idle: 5
-      maximum-pool-size: 10
-      idle-timeout: 30000
-      pool-name: HikariCP
-      max-lifetime: 600000
-      connection-timeout: 30000
+server:
+  port: 9096
 
+spring:
+  application:
+    name: msvc-notification
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5439/notificationdb
+    username: postgres
+    password: 1234
   jpa:
     hibernate:
-      ddl-auto: update   # create, update, validate, none según necesidad
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
-    format-sql: true
-    open-in-view: false   # para evitar warning de queries en la vista
 
-logging:
-  level:
-    org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl: DEBUG
-    com.zaxxer.hikari: DEBUG
+  config:
+    import: optional:configserver:http://localhost:8888
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: pidakinoma@gmail.com
+    password: owkodoqvtjtfxcjw
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+

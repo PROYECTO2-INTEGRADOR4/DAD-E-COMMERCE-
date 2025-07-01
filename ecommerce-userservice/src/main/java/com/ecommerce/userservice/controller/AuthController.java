@@ -1,5 +1,6 @@
 package com.ecommerce.userservice.controller;
 
+import com.ecommerce.userservice.client.NotificationClient;
 import com.ecommerce.userservice.domain.Rol;
 import com.ecommerce.userservice.domain.Usuario;
 import com.ecommerce.userservice.dto.*;
@@ -27,6 +28,9 @@ public class AuthController {
     @Autowired
     private IUsuarioService usuarioService;
 
+    @Autowired
+    private NotificationClient notificationClient;
+
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDto> login(@RequestBody LoginDto loginDto) {
         try {
@@ -38,6 +42,13 @@ public class AuthController {
             }
 
             var usuario = usuarioOpt.get();
+
+            NotificaciónRequestDto request = new NotificaciónRequestDto();
+            request.setTo(usuario.getEmail());
+            request.setType("LOGIN");
+            request.setUsername(usuario.getUsername());
+
+            notificationClient.enviarNotificacion(request);
 
             AuthResponseDto authResponseDto = new AuthResponseDto();
             authResponseDto.setAccessToken(token);
@@ -64,6 +75,12 @@ public class AuthController {
     public ResponseEntity<?> register(@RequestBody RegistroDto dto) {
         try {
             Usuario usuario = authService.registerUser(dto);
+            NotificaciónRequestDto request = new NotificaciónRequestDto();
+            request.setTo(usuario.getEmail());
+            request.setType("REGISTER");
+            request.setUsername(usuario.getUsername());
+
+            notificationClient.enviarNotificacion(request);
             return new ResponseEntity<>(usuario, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -79,6 +96,12 @@ public class AuthController {
     @PostMapping("/confirmar")
     public ResponseEntity<?> confirmarReset(@RequestBody RestPasswordDto dto) {
         Usuario usuario = authService.restPassword(dto);
+        NotificaciónRequestDto request = new NotificaciónRequestDto();
+        request.setTo(usuario.getEmail());
+        request.setType("RESET_PASSWORD");
+        request.setUsername(usuario.getUsername());
+
+        notificationClient.enviarNotificacion(request);
         return ResponseEntity.ok("Contraseña actualizada con éxito");
     }
 }

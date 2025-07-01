@@ -35,6 +35,17 @@ services:
     ports:
       - 5437:5432
 
+  db-notification:
+    container_name: db-notification
+    image: postgres:15.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: notificationdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - 5439:5432
+
   db-products:
     container_name: db-products
     image: postgres:15.2

@@ -1,12 +1,10 @@
 package com.ecommerce.userservice.service.impl;
 
+import com.ecommerce.userservice.client.NotificationClient;
 import com.ecommerce.userservice.config.JwtTokenProvider;
 import com.ecommerce.userservice.domain.Rol;
 import com.ecommerce.userservice.domain.Usuario;
-import com.ecommerce.userservice.dto.LoginDto;
-import com.ecommerce.userservice.dto.RegistroDto;
-import com.ecommerce.userservice.dto.RestPasswordDto;
-import com.ecommerce.userservice.dto.SolicitarCodDto;
+import com.ecommerce.userservice.dto.*;
 import com.ecommerce.userservice.repository.IRolRepository;
 import com.ecommerce.userservice.repository.IUsuarioRepository;
 import com.ecommerce.userservice.service.IAuthService;
@@ -38,6 +36,8 @@ public class IAuthServiceImpl implements IAuthService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private IEmailService iEmailService;
+    @Autowired
+    private NotificationClient notificationClient;
 
     @Override
     public String login(LoginDto loginDto) {
@@ -51,6 +51,13 @@ public class IAuthServiceImpl implements IAuthService {
         Usuario usuario = usuarioRepository.findByUsername(loginDto.getUsername()).orElseThrow();
 
         String token = jwtTokenProvider.generateToken(authentication, usuario.getId());
+
+        notificationClient.enviarNotificacion(new NotificaciónRequestDto(
+                usuario.getEmail(),
+                "LOGIN_SUCCESS",
+                usuario.getUsername()
+        ));
+
 
         return token;
     }
@@ -71,7 +78,16 @@ public class IAuthServiceImpl implements IAuthService {
                 .orElseThrow(() -> new RuntimeException("Rol ROLE_USER no existe"));
 
         usuario.setRoles(Set.of(rolDefault));
-        return usuarioRepository.save(usuario);
+        Usuario savedUsuario = usuarioRepository.save(usuario);
+
+        // ✅ Llama notificación por plantilla
+        notificationClient.enviarNotificacion(new NotificaciónRequestDto(
+                savedUsuario.getEmail(),
+                "REGISTER_WELCOME",
+                savedUsuario.getUsername()
+        ));
+
+        return savedUsuario;
     }
 
     @Override
